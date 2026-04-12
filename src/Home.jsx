@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-// ─── DATA ────────────────────────────────────────────────────────────────────
-
 const SKILLS = [
   {
     cat: "Frontend",
@@ -74,10 +72,10 @@ const PROJECTS = [
 const TECH_PILLS = ["React.js", "Spring Boot", "Java", "MySQL", "REST APIs", "Git", "SEO"];
 
 const CONTACT_LINKS = [
-  { icon: "@",  label: "email",    value: "dharani@email.com",          href: "mailto:dharani@email.com" },
-  { icon: "#",  label: "phone",    value: "+91 99999 99999",             href: "tel:+919999999999" },
-  { icon: "in", label: "linkedin", value: "linkedin.com/in/dharanid",   href: "#" },
-  { icon: "gh", label: "github",   value: "github.com/dharanid",        href: "#" },
+  { icon: "@",  label: "email",    value: "dharanidharanvp705@email.com",          href: "mailto:dharanidharanvp705@email.com" },
+  { icon: "#",  label: "phone",    value: "+91 8056669507",             href: "tel:+919999999999" },
+  { icon: "in", label: "linkedin", value: "https://www.linkedin.com/in/dharani705/",   href: "#" },
+  { icon: "gh", label: "github",   value: "github.com/dharan705",        href: "#" },
 ];
 
 // ─── GLOBAL STYLES ────────────────────────────────────────────────────────────
@@ -293,7 +291,7 @@ function Hero() {
           Available for hire · Chennai, India
         </div>
         <h1 className="hero-h1">
-          Dharani D.
+          Dharanidharan
           <span className="role"><span>Full Stack Dev</span></span>
         </h1>
         <p className="hero-desc">
@@ -318,20 +316,19 @@ function About() {
       <div className="about-grid">
         <div className="about-text">
           <h2 className="sec-h2">Who I am</h2>
-          <p>I'm Dharani D, a Full Stack Developer based in Chennai. I specialise in scalable, high-performance web apps using modern JavaScript and Java ecosystems.</p>
+          <p>I'm Dharanidharan, a Full Stack Developer based in Chennai. I specialise in scalable, high-performance web apps using modern JavaScript and Java ecosystems.</p>
           <p>From pixel-perfect React UIs to Spring Boot REST APIs, I enjoy owning the complete development lifecycle of a product.</p>
           <p>I also bring SEO awareness to every frontend project — great code should also be discoverable.</p>
         </div>
         <div className="terminal">
           <div className="terminal-body">
             <div><span className="t-key">const</span> <span className="t-val">developer</span> = {"{"}</div>
-            <div>&nbsp;&nbsp;<span className="t-key">name</span>: <span className="t-str">"Dharani D"</span>,</div>
+            <div>&nbsp;&nbsp;<span className="t-key">name</span>: <span className="t-str">"Dharanidharan"</span>,</div>
             <div>&nbsp;&nbsp;<span className="t-key">role</span>: <span className="t-str">"Full Stack Dev"</span>,</div>
             <div>&nbsp;&nbsp;<span className="t-key">location</span>: <span className="t-str">"Chennai, India"</span>,</div>
             <div>&nbsp;&nbsp;<span className="t-key">frontend</span>: [<span className="t-str">"React"</span>, <span className="t-str">"JS"</span>, <span className="t-str">"CSS"</span>],</div>
             <div>&nbsp;&nbsp;<span className="t-key">backend</span>: [<span className="t-str">"SpringBoot"</span>, <span className="t-str">"Java"</span>],</div>
             <div>&nbsp;&nbsp;<span className="t-key">database</span>: <span className="t-str">"MySQL"</span>,</div>
-            <div>&nbsp;&nbsp;<span className="t-key">openToWork</span>: <span className="t-val">true</span>,</div>
             <div>{"}"}</div>
             <div style={{ marginTop: ".75rem" }}><span className="t-muted">// building something great...</span></div>
           </div>
@@ -435,8 +432,8 @@ function Contact() {
         </div>
         <div className="contact-form">
           {[
-            { label: "name",    name: "name",    type: "text",  ph: "John Doe" },
-            { label: "email",   name: "email",   type: "email", ph: "john@example.com" },
+            { label: "name",    name: "name",    type: "text",  ph: "dharani" },
+            { label: "email",   name: "email",   type: "email", ph: "dd@example.com" },
           ].map((f) => (
             <div className="f-group" key={f.name}>
               <label className="f-label">{f.label}</label>
@@ -457,11 +454,11 @@ function Contact() {
 function Footer() {
   return (
     <footer>
-      <div className="foot-text">© 2025 Dharani D — Chennai, India</div>
+      <div className="foot-text">© 2025 Dharanidharan — Chennai, India</div>
       <div className="foot-socials">
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Email</a>
+        <a href="https://github.com/dharan705">GitHub</a>
+        <a href="https://www.linkedin.com/in/dharani705/">LinkedIn</a>
+        <a href="mailto:dharanidharanvp705@gmail.com">Email</a>
       </div>
     </footer>
   );
