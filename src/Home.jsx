@@ -442,7 +442,7 @@ function Contact() {
           ))}
           <div className="f-group">
             <label className="f-label">message</label>
-            <textarea className="f-textarea" name="message" placeholder="Tell me about your project..." value={form.message} onChange={change} />
+            <textarea className="f-textarea" name="message" placeholder="Tell me about your project.." value={form.message} onChange={change} />
           </div>
           <button className="btn-send" onClick={submit}>send_message() →</button>
         </div>
