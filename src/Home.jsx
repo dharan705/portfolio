@@ -7,6 +7,7 @@ const SKILLS = [
       { name: "React.js", pct: 90 },
       { name: "JavaScript", pct: 85 },
       { name: "HTML + CSS", pct: 92 },
+      { name: "TypeScript", pct: 80 },
     ],
   },
   {
