@@ -20,48 +20,52 @@ const skills = [
 
 const projects = [
   {
-    title: 'Figma-style Editor',
-    description: 'Drag-and-drop design workspace with editable layers, canvas controls, and export-ready assets.',
-    stack: ['React', 'Canvas API', 'Tailwind'],
+    title: 'E-Commerce Platform',
+    description:
+      'A full-stack e-commerce application built with React.js, Spring Boot, Spring Security, JWT, and MySQL. Features include secure authentication, product management, shopping cart, order management, and an admin dashboard.',
+    stack: ['React.js', 'Spring Boot', 'MySQL', 'JWT'],
     live: '#',
-    github: '#',
+    github: 'https://github.com/dharan705/Smartcart',
+  },
+  {
+    title: 'NarpaviTech Chennai',
+    description:
+      'Developed and maintained the official NarpaviTech Chennai website using React.js. Built reusable UI components, implemented responsive layouts, optimized SEO, and improved page performance for an enhanced user experience.',
+    stack: ['React.js', 'JavaScript', 'SEO', 'Responsive Design'],
+    live: 'https://narpavitech.com',
+    github: 'https://github.com/dharan705/NarpaviChennai',
+  },
+  {
+    title: 'NarpaviTech Mumbai',
+    description:
+      'Built and enhanced the NarpaviTech Mumbai business website using React.js with a focus on responsive design, reusable components, SEO optimization, and cross-browser compatibility.',
+    stack: ['React.js', 'JavaScript', 'SEO', 'Responsive Design'],
+    live: 'https://narpavitechmumbai.in',
+    github: 'https://github.com/dharan705/NarpaviMumbai',
   },
   {
     title: 'iBridge Website',
-    description: 'Responsive business landing page with SEO-aware content structure and custom animations.',
-    stack: ['React', 'Tailwind', 'Responsive Design'],
-    live: '#',
-    github: '#',
+    description:
+      'Collaborated with the development team to build the iBridge website using React.js. Developed reusable UI components, implemented responsive layouts, optimized SEO, and enhanced frontend performance across devices.',
+    stack: ['React.js', 'JavaScript', 'SEO', 'Responsive Design'],
+    live: 'https://ibridge.org.in',
+    github: 'https://github.com/dharan705/ibridge',
   },
-  {
-    title: 'Full Stack To-Do App',
-    description: 'Task manager with React frontend, Spring Boot API, user workflows, and MySQL persistence.',
-    stack: ['React', 'Spring Boot', 'MySQL'],
-    live: '#',
-    github: '#',
-  },
-  {
-    title: 'UI Component Kit',
-    description: 'Reusable interface components for forms, cards, and navigation in polished dark theme.',
-    stack: ['React', 'Tailwind', 'Accessibility'],
-    live: '#',
-    github: '#',
-  },
-]
+];
 
 const experience = [
   {
-    title: 'Full Stack Developer',
-    company: 'Freelance Projects',
-    time: '2022 - Present',
-    details: 'Building complete web products with React frontends and REST APIs for enterprise-style clients.',
+    title: 'Junior Software Developer',
+    company: 'Ranmars Corp',
+    time: 'Jan 2026 - Present',
+    details: 'Developed responsive and scalable web applications using React.js, JavaScript, and REST APIs while collaborating with the team on frontend architecture and backend integration. Contributed to SEO optimization, reusable component development, performance improvements, and responsive design to deliver modern, high-quality web solutions.',
   },
-  {
-    title: 'Web Developer Intern',
-    company: 'Startup Studio',
-    time: '2021 - 2022',
-    details: 'Delivered user-facing interfaces, content updates, and performance improvements for customer-facing apps.',
-  },
+  // {
+  //   title: 'Web Developer Intern',
+  //   company: 'Startup Studio',
+  //   time: '2021 - 2022',
+  //   details: 'Delivered user-facing interfaces, content updates, and performance improvements for customer-facing apps.',
+  // },
 ]
 
 const contactLinks = [
@@ -82,7 +86,7 @@ function Nav() {
           <a href="#projects" className="transition hover:text-white">Work</a>
           <a href="#contact" className="transition hover:text-white">Contact</a>
         </nav>
-        <a href="/resume.pdf" className="rounded-full border border-slate-700 bg-slate-900/80 px-4 py-2 text-xs font-medium uppercase tracking-[0.3em] text-sky-300 transition hover:border-sky-400 hover:text-white">Resume</a>
+        <a href="/dharanidharanvp.pdf" className="rounded-full border border-slate-700 bg-slate-900/80 px-4 py-2 text-xs font-medium uppercase tracking-[0.3em] text-sky-300 transition hover:border-sky-400 hover:text-white">Resume</a>
       </div>
     </header>
   )
@@ -98,7 +102,7 @@ function Hero() {
             <div className="space-y-5">
               <p className="text-lg font-semibold uppercase tracking-[0.3em] text-sky-300">Hello, I’m</p>
               <h1 className="max-w-3xl text-5xl font-semibold leading-tight text-white sm:text-6xl">{profile.name}</h1>
-              <p className="max-w-2xl text-xl leading-relaxed text-slate-300 sm:text-2xl">I design and develop polished web experiences with React, Tailwind CSS, and modern backend APIs.</p>
+              <p className="max-w-2xl text-xl leading-relaxed text-slate-300 sm:text-2xl">I build scalable full-stack web applications using React.js, Spring Boot, JavaScript, REST APIs, and MySQL. Passionate about creating fast, responsive, and user-friendly digital experiences.</p>
             </div>
             <div className="flex flex-wrap gap-4">
               <a href="#projects" className="inline-flex items-center justify-center rounded-full bg-sky-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-300">View Projects</a>
@@ -110,7 +114,7 @@ function Hero() {
               <div className="rounded-3xl bg-slate-950/95 p-6">
                 <p className="text-sm uppercase tracking-[0.3em] text-sky-300">Core profile</p>
                 <h2 className="mt-4 text-3xl font-semibold text-white">{profile.role}</h2>
-                <p className="mt-4 text-slate-300">Chennai-based engineer focused on scalable apps, clean UI, and fast delivery.</p>
+                <p className="mt-4 text-slate-300">1.7 years of experience developing modern web applications with React.js, Spring Boot, REST APIs, and MySQL.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-3xl border border-slate-800/90 bg-slate-950/95 p-5">
@@ -137,34 +141,42 @@ function About() {
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
           <div>
             <div className="mb-4 inline-flex rounded-full border border-sky-500/20 bg-slate-900/80 px-4 py-1 text-xs uppercase tracking-[0.35em] text-sky-300">About Me</div>
-            <h2 className="text-4xl font-semibold text-white sm:text-5xl">Product-focused design and engineering.</h2>
+            <h2 className="text-4xl font-semibold text-white sm:text-5xl">Building scalable, responsive web applications.</h2>
           </div>
-          <p className="text-lg leading-8 text-slate-300">I craft responsive, accessible web applications for businesses and startups. My work spans polished React interfaces, clean Tailwind layouts, and back-end services built with Spring Boot.</p>
+          <p className="text-lg leading-8 text-slate-300">Full Stack Developer with 1.7 years of experience building responsive web applications using React.js, Spring Boot, REST APIs, and MySQL. I enjoy creating reusable components, optimizing performance, and delivering seamless user experiences.</p>
         </div>
         <div className="mt-12 grid gap-5 lg:grid-cols-2">
           <div className="section-card p-8">
             <h3 className="text-xl font-semibold text-white">What I do</h3>
-            <p className="mt-4 text-slate-300">I partner with product teams to turn ideas into high-impact digital experiences, from landing pages to full stack business applications.</p>
+            <p className="mt-4 text-slate-300">I develop modern web applications from frontend to backend, focusing on clean architecture, responsive design, and scalable solutions.</p>
             <ul className="mt-6 space-y-4 text-slate-300">
-              <li>• Designing responsive interfaces with clean interaction patterns.</li>
-              <li>• Building React-driven, performant frontends for modern apps.</li>
-              <li>• Implementing backend APIs with Spring Boot and MySQL.</li>
+              <li>• Build responsive, scalable web applications using React.js, JavaScript, and modern frontend technologies.</li>
+              <li>• Develop secure backend services with Spring Boot, REST APIs, and MySQL.</li>
+              <li>• Design reusable, maintainable UI components that improve development efficiency.</li>
+              <li>• Increased page load speed by 25% and reduced Largest Contentful Paint (LCP) through frontend performance optimization.</li>
+              <li>• Implement SEO best practices and deliver cross-browser compatible, user-friendly web experiences.</li>
+   
+              
             </ul>
           </div>
           <div className="section-card p-8">
-            <h3 className="text-xl font-semibold text-white">Resume highlights</h3>
+            <h3 className="text-xl font-semibold text-white">Professional Highlights</h3>
             <div className="mt-6 space-y-4 text-slate-300">
               <div>
-                <p className="font-semibold text-white">Engineering leadership</p>
-                <p className="mt-2">Leading development from planning to launch on client-facing web products.</p>
+                <p className="font-semibold text-white">Frontend Development</p>
+                <p className="mt-2">Built responsive business websites with reusable React components and modern frontend architecture.</p>
               </div>
               <div>
-                <p className="font-semibold text-white">Technical delivery</p>
-                <p className="mt-2">Shipping accessible, responsive UIs with production-ready code and testing awareness.</p>
+                <p className="font-semibold text-white">Backend Development</p>
+                <p className="mt-2">Developed secure REST APIs using Spring Boot, Spring Security, JWT, and MySQL.</p>
               </div>
               <div>
-                <p className="font-semibold text-white">Collaboration</p>
-                <p className="mt-2">Working closely with stakeholders to align product goals, design, and engineering execution.</p>
+                <p className="font-semibold text-white">Performance Optimization</p>
+                <p className="mt-2">Improved page load speed by 25% and reduced Largest Contentful Paint (LCP) through frontend optimization.</p>
+              </div>
+              <div>
+                <p className="font-semibold text-white">SEO & Collaboration</p>
+                <p className="mt-2">Implemented SEO best practices, integrated Google Search Console, and collaborated with teams to deliver scalable web applications.</p>
               </div>
             </div>
           </div>
@@ -183,7 +195,7 @@ function Skills() {
             <p className="text-sm uppercase tracking-[0.35em] text-sky-300">Core skills</p>
             <h2 className="mt-4 text-4xl font-semibold text-white sm:text-5xl">What I work with</h2>
           </div>
-          <div className="hidden rounded-3xl border border-slate-800/90 bg-slate-900/80 px-6 py-4 text-sm text-slate-400 sm:block">Built with React + Vite + Tailwind CSS.</div>
+          <div className="hidden rounded-3xl border border-slate-800/90 bg-slate-900/80 px-6 py-4 text-sm text-slate-400 sm:block">Built with React + Vite + Tailwind CSS + Spring Boot.</div>
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {skills.map((skill) => (
@@ -340,7 +352,7 @@ function Footer() {
         <div className="flex flex-wrap items-center gap-4 text-slate-400">
           <a href={profile.linkedin} className="transition hover:text-white">LinkedIn</a>
           <a href={profile.github} className="transition hover:text-white">GitHub</a>
-          <a href="/resume.pdf" className="transition hover:text-white">Resume</a>
+          <a href="/dharanidharanvp.pdf" className="transition hover:text-white">Resume</a>
         </div>
       </div>
     </footer>
