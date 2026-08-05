@@ -1,484 +1,365 @@
-import { useState } from "react";
+﻿import { useState } from 'react'
 
-const SKILLS = [
+const profile = {
+  name: 'Dharanidharan',
+  role: 'Full Stack Developer',
+  location: 'Chennai, India',
+  email: 'dharanidharanvp705@email.com',
+  phone: '+91 8056669507',
+  linkedin: 'https://www.linkedin.com/in/dharani705/',
+  github: 'https://github.com/dharan705',
+}
+
+const skills = [
+  { label: 'React', value: 'Experienced with React 19, hooks, and state-driven UI.' },
+  { label: 'Tailwind CSS', value: 'Fast layout development with utility-first styling.' },
+  { label: 'JavaScript', value: 'Modern ES modules, responsive UI, and front-end performance.' },
+  { label: 'Spring Boot', value: 'REST API development with Java and MySQL integration.' },
+  { label: 'Web Accessibility', value: 'Accessible navigation, semantic structure, and keyboard support.' },
+]
+
+const projects = [
   {
-    cat: "Frontend",
-    items: [
-      { name: "React.js", pct: 90 },
-      { name: "JavaScript", pct: 85 },
-      { name: "HTML + CSS", pct: 92 },
-      { name: "TypeScript", pct: 80 },
-    ],
+    title: 'Figma-style Editor',
+    description: 'Drag-and-drop design workspace with editable layers, canvas controls, and export-ready assets.',
+    stack: ['React', 'Canvas API', 'Tailwind'],
+    live: '#',
+    github: '#',
   },
   {
-    cat: "Backend",
-    items: [
-      { name: "Spring Boot", pct: 82 },
-      { name: "Java", pct: 80 },
-      { name: "REST APIs", pct: 85 },
-    ],
+    title: 'iBridge Website',
+    description: 'Responsive business landing page with SEO-aware content structure and custom animations.',
+    stack: ['React', 'Tailwind', 'Responsive Design'],
+    live: '#',
+    github: '#',
   },
   {
-    cat: "Database",
-    items: [
-      { name: "MySQL", pct: 80 },
-      { name: "JPA / Hibernate", pct: 72 },
-    ],
+    title: 'Full Stack To-Do App',
+    description: 'Task manager with React frontend, Spring Boot API, user workflows, and MySQL persistence.',
+    stack: ['React', 'Spring Boot', 'MySQL'],
+    live: '#',
+    github: '#',
   },
   {
-    cat: "Tools",
-    items: [
-      { name: "Git + GitHub", pct: 88 },
-      { name: "Postman", pct: 85 },
-      { name: "SEO", pct: 75 },
-    ],
+    title: 'UI Component Kit',
+    description: 'Reusable interface components for forms, cards, and navigation in polished dark theme.',
+    stack: ['React', 'Tailwind', 'Accessibility'],
+    live: '#',
+    github: '#',
   },
-];
+]
 
-const PROJECTS = [
+const experience = [
   {
-    file: "PROJECT_01.jsx",
-    title: "Figma-like Editor",
-    desc: "Browser-based design tool with drag-and-drop canvas, real-time element editing, and export — built entirely in React.",
-    stack: ["React.js", "Canvas API", "CSS Modules"],
-    live: "#",
-    github: "#",
+    title: 'Full Stack Developer',
+    company: 'Freelance Projects',
+    time: '2022 - Present',
+    details: 'Building complete web products with React frontends and REST APIs for enterprise-style clients.',
   },
   {
-    file: "PROJECT_02.jsx",
-    title: "iBridge Website",
-    desc: "Responsive corporate website with SEO-optimised structure, clean components, and mobile-first design.",
-    stack: ["React.js", "SEO", "Responsive"],
-    live: "#",
-    github: "#",
+    title: 'Web Developer Intern',
+    company: 'Startup Studio',
+    time: '2021 - 2022',
+    details: 'Delivered user-facing interfaces, content updates, and performance improvements for customer-facing apps.',
   },
-  {
-    file: "PROJECT_03.java",
-    title: "Full Stack To-Do App",
-    desc: "Task manager with React frontend + Spring Boot REST backend, CRUD ops, auth, and MySQL persistence.",
-    stack: ["React.js", "Spring Boot", "MySQL", "Java"],
-    live: "#",
-    github: "#",
-  },
-  {
-    file: "PROJECT_04.jsx",
-    title: "Responsive UI Kit",
-    desc: "Reusable component library showcasing accessible forms, layouts, and interactive patterns in React + CSS.",
-    stack: ["React.js", "CSS3", "Accessibility"],
-    live: "#",
-    github: "#",
-  },
-];
+]
 
-const TECH_PILLS = ["React.js", "Spring Boot", "Java", "MySQL", "REST APIs", "Git", "SEO"];
-
-const CONTACT_LINKS = [
-  { icon: "@",  label: "email",    value: "dharanidharanvp705@email.com",          href: "mailto:dharanidharanvp705@email.com" },
-  { icon: "#",  label: "phone",    value: "+91 8056669507",             href: "tel:+919999999999" },
-  { icon: "in", label: "linkedin", value: "https://www.linkedin.com/in/dharani705/",   href: "#" },
-  { icon: "gh", label: "github",   value: "github.com/dharan705",        href: "#" },
-];
-
-// ─── GLOBAL STYLES ────────────────────────────────────────────────────────────
-
-const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
-
-  :root {
-    --bg: #080c14;
-    --surface: #0d1220;
-    --surface2: #111827;
-    --green: #00ff87;
-    --blue: #38bdf8;
-    --purple: #a78bfa;
-    --text: #e2e8f0;
-    --muted: #64748b;
-    --border: #1e293b;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body, #root {
-    font-family: 'Space Grotesk', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 60px 60px;
-    opacity: .35; pointer-events: none; z-index: 0;
-  }
-
-  /* NAV */
-  .nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1rem 3rem;
-    background: rgba(8,12,20,0.85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-  }
-  .logo { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 500; }
-  .logo .green { color: var(--green); }
-  .logo .blue { color: var(--blue); }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { font-size: .8rem; font-weight: 500; color: var(--muted); text-decoration: none; letter-spacing: .05em; transition: color .2s; }
-  .nav-links a:hover { color: var(--green); }
-
-  /* HERO */
-  .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 3rem 4rem; position: relative; z-index: 1; }
-  .hero-eyebrow { display: inline-flex; align-items: center; gap: .6rem; font-family: 'JetBrains Mono', monospace; font-size: .75rem; color: var(--green); margin-bottom: 2rem; }
-  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,135,.4); }
-    50% { box-shadow: 0 0 0 8px rgba(0,255,135,0); }
-  }
-  .hero-h1 { font-size: clamp(3rem, 7vw, 6rem); font-weight: 700; line-height: 1; letter-spacing: -.03em; margin-bottom: 1.5rem; }
-  .hero-h1 .role { display: block; color: transparent; -webkit-text-stroke: 1px #334155; font-weight: 700; }
-  .hero-h1 .role span {
-    background: linear-gradient(90deg, var(--blue), var(--purple));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; -webkit-text-stroke: 0;
-  }
-  .hero-desc { font-size: 1.05rem; color: var(--muted); line-height: 1.8; max-width: 520px; margin-bottom: 2.5rem; }
-  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .tech-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2rem; }
-  .tech-pill {
-    font-family: 'JetBrains Mono', monospace; font-size: .7rem; padding: .3rem .8rem;
-    border: 1px solid var(--border); color: var(--muted); background: var(--surface);
-    cursor: default; transition: all .2s;
-  }
-  .tech-pill:hover { border-color: var(--green); color: var(--green); background: rgba(0,255,135,.05); }
-
-  /* BUTTONS */
-  .btn-glow {
-    background: var(--green); color: #000; padding: .85rem 2rem;
-    font-family: 'Space Grotesk', sans-serif; font-size: .85rem; font-weight: 600;
-    border: none; cursor: pointer; text-decoration: none; display: inline-block;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
-    transition: opacity .2s, transform .2s;
-  }
-  .btn-glow:hover { opacity: .85; transform: translateY(-2px); }
-  .btn-ghost {
-    background: transparent; color: var(--text); padding: .85rem 2rem;
-    font-family: 'Space Grotesk', sans-serif; font-size: .85rem; font-weight: 500;
-    border: 1px solid var(--border); cursor: pointer; text-decoration: none; display: inline-block;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
-    transition: all .2s;
-  }
-  .btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
-
-  /* SECTIONS */
-  .section { padding: 5rem 3rem; position: relative; z-index: 1; }
-  .sec-label { font-family: 'JetBrains Mono', monospace; font-size: .7rem; color: var(--green); letter-spacing: .15em; text-transform: uppercase; margin-bottom: .75rem; }
-  .sec-h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; letter-spacing: -.02em; margin-bottom: 2.5rem; }
-
-  /* ABOUT */
-  .about { background: var(--surface); }
-  .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start; }
-  .about-text p { color: var(--muted); line-height: 1.9; font-size: .95rem; margin-bottom: 1rem; }
-  .terminal { background: #060a10; border: 1px solid var(--border); padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: .78rem; line-height: 1.8; position: relative; }
-  .terminal::before { content: '● ● ●'; position: absolute; top: .75rem; left: 1rem; font-size: .6rem; color: var(--muted); letter-spacing: .5rem; }
-  .terminal-body { margin-top: 1.5rem; }
-  .t-key { color: var(--blue); }
-  .t-val { color: var(--green); }
-  .t-str { color: var(--purple); }
-  .t-muted { color: var(--muted); }
-
-  /* SKILLS */
-  .skills-wrap { background: var(--surface2); }
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); }
-  .skill-box { background: var(--surface); padding: 1.75rem; transition: background .2s; }
-  .skill-box:hover { background: var(--surface2); }
-  .skill-box-title { font-family: 'JetBrains Mono', monospace; font-size: .7rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; }
-  .skill-box-title::before { content: '//'; color: var(--green); }
-  .skill-list { display: flex; flex-direction: column; gap: .6rem; }
-  .skill-item { display: flex; align-items: center; gap: .75rem; font-size: .85rem; }
-  .skill-bar { flex: 1; height: 2px; background: var(--border); position: relative; overflow: hidden; }
-  .skill-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--blue)); }
-  .skill-pct { font-family: 'JetBrains Mono', monospace; font-size: .65rem; color: var(--muted); min-width: 2.5rem; text-align: right; }
-
-  /* PROJECTS */
-  .projects-wrap { background: var(--surface); }
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: var(--border); }
-  .proj-card { background: var(--bg); padding: 2rem; position: relative; overflow: hidden; transition: background .3s; cursor: default; }
-  .proj-card:hover { background: var(--surface2); }
-  .proj-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--green), var(--blue)); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
-  .proj-card:hover::after { transform: scaleX(1); }
-  .proj-num { font-family: 'JetBrains Mono', monospace; font-size: .65rem; color: var(--muted); margin-bottom: 1.5rem; }
-  .proj-title { font-size: 1.1rem; font-weight: 600; margin-bottom: .75rem; }
-  .proj-desc { font-size: .83rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
-  .proj-stack { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1.5rem; }
-  .proj-badge { font-family: 'JetBrains Mono', monospace; font-size: .62rem; padding: .2rem .6rem; border: 1px solid var(--border); color: var(--muted); }
-  .proj-links { display: flex; gap: 1rem; }
-  .proj-link { font-family: 'JetBrains Mono', monospace; font-size: .7rem; color: var(--green); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .2s; }
-  .proj-link:hover { border-color: var(--green); }
-  .proj-link.gh { color: var(--muted); }
-  .proj-link.gh:hover { color: var(--blue); border-color: var(--blue); }
-
-  /* RESUME */
-  .resume-wrap { text-align: center; }
-  .resume-box { display: inline-block; border: 1px solid var(--border); padding: 3rem 4rem; background: var(--surface); max-width: 500px; width: 100%; }
-  .resume-box p { color: var(--muted); font-size: .9rem; margin-bottom: 2rem; }
-  .btn-download { display: inline-block; background: transparent; border: 1px solid var(--green); color: var(--green); padding: .85rem 2.5rem; font-family: 'JetBrains Mono', monospace; font-size: .8rem; text-decoration: none; transition: all .2s; cursor: pointer; }
-  .btn-download:hover { background: var(--green); color: #000; }
-
-  /* CONTACT */
-  .contact-wrap { background: var(--surface); }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-  .contact-head p { color: var(--muted); font-size: .9rem; line-height: 1.8; margin-bottom: 2rem; }
-  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
-  .c-link { display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid var(--border); background: var(--bg); transition: border-color .2s; text-decoration: none; color: var(--text); }
-  .c-link:hover { border-color: var(--blue); }
-  .c-link-icon { width: 36px; height: 36px; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: .7rem; color: var(--blue); flex-shrink: 0; }
-  .c-link-label { font-size: .7rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; letter-spacing: .05em; }
-  .c-link-val { font-size: .85rem; font-weight: 500; }
-  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
-  .f-group { display: flex; flex-direction: column; gap: .4rem; }
-  .f-label { font-family: 'JetBrains Mono', monospace; font-size: .65rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
-  .f-input, .f-textarea { background: var(--bg); border: 1px solid var(--border); padding: .8rem 1rem; font-family: 'Space Grotesk', sans-serif; font-size: .85rem; color: var(--text); outline: none; transition: border-color .2s; }
-  .f-input:focus, .f-textarea:focus { border-color: var(--green); }
-  .f-textarea { resize: vertical; min-height: 120px; }
-  .btn-send { background: var(--green); color: #000; padding: .9rem 2rem; font-family: 'JetBrains Mono', monospace; font-size: .8rem; font-weight: 500; border: none; cursor: pointer; align-self: flex-start; transition: opacity .2s; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
-  .btn-send:hover { opacity: .85; }
-
-  /* FOOTER */
-  footer { border-top: 1px solid var(--border); padding: 1.75rem 3rem; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; background: var(--bg); }
-  .foot-text { font-family: 'JetBrains Mono', monospace; font-size: .7rem; color: var(--muted); }
-  .foot-socials { display: flex; gap: 1.5rem; }
-  .foot-socials a { font-family: 'JetBrains Mono', monospace; font-size: .7rem; color: var(--muted); text-decoration: none; transition: color .2s; }
-  .foot-socials a:hover { color: var(--green); }
-
-  @media (max-width: 768px) {
-    .nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    .section { padding: 3.5rem 1.5rem; }
-    .hero { padding: 6rem 1.5rem 3rem; }
-    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
-    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 1.5rem; }
-  }
-`;
-
-// ─── COMPONENTS ──────────────────────────────────────────────────────────────
+const contactLinks = [
+  { label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
+  { label: 'Phone', value: profile.phone, href: `tel:${profile.phone.replace(/\s+/g, '')}` },
+  { label: 'LinkedIn', value: profile.linkedin, href: profile.linkedin },
+  { label: 'GitHub', value: profile.github, href: profile.github },
+]
 
 function Nav() {
   return (
-    <nav className="nav">
-      <div className="logo">
-        <span className="green">&lt;</span>Dharani<span className="blue">D</span><span className="green">/&gt;</span>
+    <header className="sticky top-0 z-30 border-b border-slate-800/75 bg-slate-950/90 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        <a href="#home" className="text-sm font-semibold uppercase tracking-[0.24em] text-sky-300">dharani.dev</a>
+        <nav className="hidden items-center gap-8 text-sm text-slate-300 md:flex">
+          <a href="#about" className="transition hover:text-white">About</a>
+          <a href="#skills" className="transition hover:text-white">Skills</a>
+          <a href="#projects" className="transition hover:text-white">Work</a>
+          <a href="#contact" className="transition hover:text-white">Contact</a>
+        </nav>
+        <a href="/resume.pdf" className="rounded-full border border-slate-700 bg-slate-900/80 px-4 py-2 text-xs font-medium uppercase tracking-[0.3em] text-sky-300 transition hover:border-sky-400 hover:text-white">Resume</a>
       </div>
-      <ul className="nav-links">
-        <li><a href="#about">about</a></li>
-        <li><a href="#skills">skills</a></li>
-        <li><a href="#projects">projects</a></li>
-        <li><a href="#contact">contact</a></li>
-      </ul>
-    </nav>
-  );
+    </header>
+  )
 }
 
 function Hero() {
   return (
-    <section className="hero" id="home">
-      <div>
-        <div className="hero-eyebrow">
-          <span className="status-dot" />
-          Available for hire · Chennai, India
-        </div>
-        <h1 className="hero-h1">
-          Dharanidharan
-          <span className="role"><span>Full Stack Dev</span></span>
-        </h1>
-        <p className="hero-desc">
-          I build end-to-end web applications — React.js frontends that delight users and Spring Boot APIs that scale. Clean code. Real results.
-        </p>
-        <div className="hero-ctas">
-          <a href="#projects" className="btn-glow">View Projects →</a>
-          <a href="#contact" className="btn-ghost">Get in Touch</a>
-        </div>
-        <div className="tech-row">
-          {TECH_PILLS.map((t) => <span className="tech-pill" key={t}>{t}</span>)}
+    <section id="home" className="relative overflow-hidden px-6 pt-12 pb-16 sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-16 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+          <div className="space-y-8">
+            <div className="inline-flex rounded-full border border-sky-500/20 bg-slate-900/80 px-4 py-1 text-xs uppercase tracking-[0.35em] text-sky-300 shadow-[0_20px_120px_-60px_rgba(14,165,233,0.45)]">Full Stack Portfolio</div>
+            <div className="space-y-5">
+              <p className="text-lg font-semibold uppercase tracking-[0.3em] text-sky-300">Hello, I’m</p>
+              <h1 className="max-w-3xl text-5xl font-semibold leading-tight text-white sm:text-6xl">{profile.name}</h1>
+              <p className="max-w-2xl text-xl leading-relaxed text-slate-300 sm:text-2xl">I design and develop polished web experiences with React, Tailwind CSS, and modern backend APIs.</p>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              <a href="#projects" className="inline-flex items-center justify-center rounded-full bg-sky-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-300">View Projects</a>
+              <a href="#contact" className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-900/80 px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-sky-400 hover:text-white">Let’s Connect</a>
+            </div>
+          </div>
+          <div className="rounded-[2rem] border border-slate-800/80 bg-slate-900/80 p-8 shadow-[0_35px_120px_-60px_rgba(59,130,246,0.45)] backdrop-blur-xl">
+            <div className="space-y-6">
+              <div className="rounded-3xl bg-slate-950/95 p-6">
+                <p className="text-sm uppercase tracking-[0.3em] text-sky-300">Core profile</p>
+                <h2 className="mt-4 text-3xl font-semibold text-white">{profile.role}</h2>
+                <p className="mt-4 text-slate-300">Chennai-based engineer focused on scalable apps, clean UI, and fast delivery.</p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="rounded-3xl border border-slate-800/90 bg-slate-950/95 p-5">
+                  <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Location</p>
+                  <p className="mt-3 text-lg font-medium text-white">{profile.location}</p>
+                </div>
+                <div className="rounded-3xl border border-slate-800/90 bg-slate-950/95 p-5">
+                  <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Availability</p>
+                  <p className="mt-3 text-lg font-medium text-white">Open to new opportunities</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 function About() {
   return (
-    <section className="section about" id="about">
-      <div className="sec-label">// 01 — about_me</div>
-      <div className="about-grid">
-        <div className="about-text">
-          <h2 className="sec-h2">Who I am</h2>
-          <p>I'm Dharanidharan, a Full Stack Developer based in Chennai. I specialise in scalable, high-performance web apps using modern JavaScript and Java ecosystems.</p>
-          <p>From pixel-perfect React UIs to Spring Boot REST APIs, I enjoy owning the complete development lifecycle of a product.</p>
-          <p>I also bring SEO awareness to every frontend project — great code should also be discoverable.</p>
+    <section id="about" className="px-6 py-20 sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+          <div>
+            <div className="mb-4 inline-flex rounded-full border border-sky-500/20 bg-slate-900/80 px-4 py-1 text-xs uppercase tracking-[0.35em] text-sky-300">About Me</div>
+            <h2 className="text-4xl font-semibold text-white sm:text-5xl">Product-focused design and engineering.</h2>
+          </div>
+          <p className="text-lg leading-8 text-slate-300">I craft responsive, accessible web applications for businesses and startups. My work spans polished React interfaces, clean Tailwind layouts, and back-end services built with Spring Boot.</p>
         </div>
-        <div className="terminal">
-          <div className="terminal-body">
-            <div><span className="t-key">const</span> <span className="t-val">developer</span> = {"{"}</div>
-            <div>&nbsp;&nbsp;<span className="t-key">name</span>: <span className="t-str">"Dharanidharan"</span>,</div>
-            <div>&nbsp;&nbsp;<span className="t-key">role</span>: <span className="t-str">"Full Stack Dev"</span>,</div>
-            <div>&nbsp;&nbsp;<span className="t-key">location</span>: <span className="t-str">"Chennai, India"</span>,</div>
-            <div>&nbsp;&nbsp;<span className="t-key">frontend</span>: [<span className="t-str">"React"</span>, <span className="t-str">"JS"</span>, <span className="t-str">"CSS"</span>],</div>
-            <div>&nbsp;&nbsp;<span className="t-key">backend</span>: [<span className="t-str">"SpringBoot"</span>, <span className="t-str">"Java"</span>],</div>
-            <div>&nbsp;&nbsp;<span className="t-key">database</span>: <span className="t-str">"MySQL"</span>,</div>
-            <div>{"}"}</div>
-            <div style={{ marginTop: ".75rem" }}><span className="t-muted">// building something great...</span></div>
+        <div className="mt-12 grid gap-5 lg:grid-cols-2">
+          <div className="section-card p-8">
+            <h3 className="text-xl font-semibold text-white">What I do</h3>
+            <p className="mt-4 text-slate-300">I partner with product teams to turn ideas into high-impact digital experiences, from landing pages to full stack business applications.</p>
+            <ul className="mt-6 space-y-4 text-slate-300">
+              <li>• Designing responsive interfaces with clean interaction patterns.</li>
+              <li>• Building React-driven, performant frontends for modern apps.</li>
+              <li>• Implementing backend APIs with Spring Boot and MySQL.</li>
+            </ul>
+          </div>
+          <div className="section-card p-8">
+            <h3 className="text-xl font-semibold text-white">Resume highlights</h3>
+            <div className="mt-6 space-y-4 text-slate-300">
+              <div>
+                <p className="font-semibold text-white">Engineering leadership</p>
+                <p className="mt-2">Leading development from planning to launch on client-facing web products.</p>
+              </div>
+              <div>
+                <p className="font-semibold text-white">Technical delivery</p>
+                <p className="mt-2">Shipping accessible, responsive UIs with production-ready code and testing awareness.</p>
+              </div>
+              <div>
+                <p className="font-semibold text-white">Collaboration</p>
+                <p className="mt-2">Working closely with stakeholders to align product goals, design, and engineering execution.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 function Skills() {
   return (
-    <section className="section skills-wrap" id="skills">
-      <div className="sec-label">// 02 — skills</div>
-      <h2 className="sec-h2">What I use</h2>
-      <div className="skills-grid">
-        {SKILLS.map(({ cat, items }) => (
-          <div className="skill-box" key={cat}>
-            <div className="skill-box-title">{cat}</div>
-            <div className="skill-list">
-              {items.map(({ name, pct }) => (
-                <div className="skill-item" key={name}>
-                  {name}
-                  <div className="skill-bar">
-                    <div className="skill-fill" style={{ width: `${pct}%` }} />
-                  </div>
-                  <span className="skill-pct">{pct}%</span>
-                </div>
-              ))}
-            </div>
+    <section id="skills" className="px-6 py-20 sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-12 flex items-center justify-between gap-6">
+          <div>
+            <p className="text-sm uppercase tracking-[0.35em] text-sky-300">Core skills</p>
+            <h2 className="mt-4 text-4xl font-semibold text-white sm:text-5xl">What I work with</h2>
           </div>
-        ))}
+          <div className="hidden rounded-3xl border border-slate-800/90 bg-slate-900/80 px-6 py-4 text-sm text-slate-400 sm:block">Built with React + Vite + Tailwind CSS.</div>
+        </div>
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {skills.map((skill) => (
+            <div key={skill.label} className="glass-panel p-6">
+              <h3 className="text-xl font-semibold text-white">{skill.label}</h3>
+              <p className="mt-3 text-slate-300">{skill.value}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
-  );
+  )
 }
 
 function Projects() {
   return (
-    <section className="section projects-wrap" id="projects">
-      <div className="sec-label">// 03 — projects</div>
-      <h2 className="sec-h2">What I've built</h2>
-      <div className="projects-grid">
-        {PROJECTS.map((p) => (
-          <div className="proj-card" key={p.title}>
-            <div className="proj-num">{p.file}</div>
-            <div className="proj-title">{p.title}</div>
-            <p className="proj-desc">{p.desc}</p>
-            <div className="proj-stack">
-              {p.stack.map((s) => <span className="proj-badge" key={s}>{s}</span>)}
+    <section id="projects" className="px-6 py-20 sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-12">
+          <p className="text-sm uppercase tracking-[0.35em] text-sky-300">Featured work</p>
+          <h2 className="mt-4 text-4xl font-semibold text-white sm:text-5xl">Projects that tell the story</h2>
+        </div>
+        <div className="grid gap-6 xl:grid-cols-2">
+          {projects.map((project) => (
+            <div key={project.title} className="section-card overflow-hidden p-8">
+              <p className="text-xs uppercase tracking-[0.35em] text-sky-300">Featured</p>
+              <h3 className="mt-4 text-2xl font-semibold text-white">{project.title}</h3>
+              <p className="mt-4 text-slate-300">{project.description}</p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {project.stack.map((item) => (
+                  <span key={item} className="rounded-full border border-slate-700/80 px-3 py-1 text-sm text-slate-300">{item}</span>
+                ))}
+              </div>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <a href={project.live} className="text-sm font-semibold uppercase tracking-[0.28em] text-sky-300 transition hover:text-white">Live demo</a>
+                <a href={project.github} className="text-sm font-semibold uppercase tracking-[0.28em] text-slate-400 transition hover:text-slate-100">GitHub</a>
+              </div>
             </div>
-            <div className="proj-links">
-              <a href={p.live} className="proj-link">live demo ↗</a>
-              <a href={p.github} className="proj-link gh">github →</a>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
-  );
+  )
 }
 
-function Resume() {
+function Experience() {
   return (
-    <section className="section resume-wrap" id="resume">
-      <div className="resume-box">
-        <div className="sec-label" style={{ textAlign: "left" }}>// 04 — resume</div>
-        <h2 className="sec-h2">Download CV</h2>
-        <p>Full overview of my experience, education, and technical skills — in one clean PDF.</p>
-        <a href="/dharani-resume.pdf" className="btn-download" download>↓ dharani_resume.pdf</a>
+    <section className="px-6 py-20 sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-12">
+          <p className="text-sm uppercase tracking-[0.35em] text-sky-300">Professional experience</p>
+          <h2 className="mt-4 text-4xl font-semibold text-white sm:text-5xl">Career highlights</h2>
+        </div>
+        <div className="grid gap-6">
+          {experience.map((item) => (
+            <div key={item.title} className="glass-panel p-8">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-lg font-semibold text-white">{item.title}</p>
+                  <p className="text-sm uppercase tracking-[0.3em] text-slate-500">{item.company}</p>
+                </div>
+                <p className="text-sm text-slate-400">{item.time}</p>
+              </div>
+              <p className="mt-4 text-slate-300">{item.details}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
-  );
+  )
 }
 
 function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const change = (e) => setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
-  const submit = () => {
-    alert(`Thanks ${form.name}! Message received.`);
-    setForm({ name: "", email: "", message: "" });
-  };
+  const [form, setForm] = useState({ name: '', email: '', message: '' })
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setForm((current) => ({ ...current, [name]: value }))
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    window.alert(`Thank you, ${form.name || 'there'}! Your message was sent.`)
+    setForm({ name: '', email: '', message: '' })
+  }
 
   return (
-    <section className="section contact-wrap" id="contact">
-      <div className="sec-label">// 05 — contact</div>
-      <div className="contact-grid">
-        <div className="contact-head">
-          <h2 className="sec-h2">Let's work<br />together.</h2>
-          <p>Open to full-time roles, freelance gigs, and cool collaborations. Reach out — I reply fast.</p>
-          <div className="contact-links">
-            {CONTACT_LINKS.map((c) => (
-              <a href={c.href} className="c-link" key={c.label}>
-                <div className="c-link-icon">{c.icon}</div>
-                <div>
-                  <div className="c-link-label">{c.label}</div>
-                  <div className="c-link-val">{c.value}</div>
-                </div>
-              </a>
-            ))}
-          </div>
+    <section id="contact" className="px-6 py-20 sm:px-8 lg:px-10">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-12">
+          <p className="text-sm uppercase tracking-[0.35em] text-sky-300">Contact</p>
+          <h2 className="mt-4 text-4xl font-semibold text-white sm:text-5xl">Ready to build together?</h2>
         </div>
-        <div className="contact-form">
-          {[
-            { label: "name",    name: "name",    type: "text",  ph: "dharani" },
-            { label: "email",   name: "email",   type: "email", ph: "dd@example.com" },
-          ].map((f) => (
-            <div className="f-group" key={f.name}>
-              <label className="f-label">{f.label}</label>
-              <input className="f-input" type={f.type} name={f.name} placeholder={f.ph} value={form[f.name]} onChange={change} />
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="section-card p-8">
+            <p className="text-slate-300">Reach out for collaborations, freelance work, or to request the full resume.</p>
+            <div className="mt-8 space-y-4 text-slate-300">
+              {contactLinks.map((item) => (
+                <a key={item.label} href={item.href} className="block rounded-3xl border border-slate-800/90 bg-slate-950/80 px-5 py-4 text-sm transition hover:border-sky-400 hover:text-white">
+                  <span className="block text-xs uppercase tracking-[0.35em] text-slate-500">{item.label}</span>
+                  <span className="mt-1 block text-base font-medium text-white">{item.value}</span>
+                </a>
+              ))}
             </div>
-          ))}
-          <div className="f-group">
-            <label className="f-label">message</label>
-            <textarea className="f-textarea" name="message" placeholder="Tell me about your project.." value={form.message} onChange={change} />
           </div>
-          <button className="btn-send" onClick={submit}>send_message() →</button>
+          <form onSubmit={handleSubmit} className="section-card p-8">
+            <div className="space-y-6">
+              <label className="block text-sm font-medium text-slate-200">
+                Name
+                <input
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  required
+                  className="mt-3 w-full rounded-3xl border border-slate-800/90 bg-slate-950/90 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-400"
+                />
+              </label>
+              <label className="block text-sm font-medium text-slate-200">
+                Email
+                <input
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
+                  className="mt-3 w-full rounded-3xl border border-slate-800/90 bg-slate-950/90 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-400"
+                />
+              </label>
+              <label className="block text-sm font-medium text-slate-200">
+                Message
+                <textarea
+                  name="message"
+                  rows="5"
+                  value={form.message}
+                  onChange={handleChange}
+                  required
+                  className="mt-3 w-full rounded-3xl border border-slate-800/90 bg-slate-950/90 px-4 py-3 text-slate-100 outline-none transition focus:border-sky-400"
+                />
+              </label>
+              <button type="submit" className="inline-flex items-center justify-center rounded-full bg-sky-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-300">Send message</button>
+            </div>
+          </form>
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 function Footer() {
   return (
-    <footer>
-      <div className="foot-text">© 2025 Dharanidharan — Chennai, India</div>
-      <div className="foot-socials">
-        <a href="https://github.com/dharan705">GitHub</a>
-        <a href="https://www.linkedin.com/in/dharani705/">LinkedIn</a>
-        <a href="mailto:dharanidharanvp705@gmail.com">Email</a>
+    <footer className="border-t border-slate-800/90 bg-slate-950/90 px-6 py-8 text-sm text-slate-500 sm:px-8 lg:px-10">
+      <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p>© {new Date().getFullYear()} {profile.name}. Crafted with React + Tailwind.</p>
+        <div className="flex flex-wrap items-center gap-4 text-slate-400">
+          <a href={profile.linkedin} className="transition hover:text-white">LinkedIn</a>
+          <a href={profile.github} className="transition hover:text-white">GitHub</a>
+          <a href="/resume.pdf" className="transition hover:text-white">Resume</a>
+        </div>
       </div>
     </footer>
-  );
+  )
 }
 
-// ─── APP ─────────────────────────────────────────────────────────────────────
-
-export default function Portfolio() {
+export default function Home() {
   return (
-    <>
-      <style>{css}</style>
+    <div className="min-h-screen bg-slate-950 text-slate-100">
       <Nav />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Resume />
-      <Contact />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Experience />
+        <Contact />
+      </main>
       <Footer />
-    </>
-  );
+    </div>
+  )
 }
