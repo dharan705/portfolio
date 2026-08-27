@@ -40,7 +40,7 @@ const profile = {
   phone: '+91 8056669507',
   linkedin: 'https://www.linkedin.com/in/dharani705/',
   github: 'https://github.com/dharan705',
-  resume: '/dharanidharanvp.pdf',
+  resume: 'dharanidharanvp.pdf',
   availability: 'Open to Work',
 }
 
@@ -406,7 +406,7 @@ function Hero() {
             <a href="#projects" className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-teal-400 to-emerald-500 px-6 py-3 text-sm font-semibold text-[#052014] transition hover:brightness-110">
               View My Work <Icon name="arrow-right" width={16} height={16} />
             </a>
-            <a href={profile.resume} className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#050b0a] transition hover:bg-slate-200">
+            <a href={`/portfolio${profile.resume}`} className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#050b0a] transition hover:bg-slate-200">
               My Resume
             </a>
           </div>
@@ -475,7 +475,7 @@ function About() {
           </div>
 
           <div className="mt-10 flex flex-wrap gap-4">
-            <a href={profile.resume} className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-slate-100 transition hover:border-teal-400/60 hover:text-teal-300">
+            <a href={`/portfolio${profile.resume}`} className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-slate-100 transition hover:border-teal-400/60 hover:text-teal-300">
               More About Me <Icon name="arrow-right" width={16} height={16} />
             </a>
             <a href="#projects" className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-slate-100 transition hover:border-teal-400/60 hover:text-teal-300">
@@ -929,7 +929,7 @@ function Footer() {
         <div className="flex flex-wrap items-center gap-5 text-slate-400">
           <a href={profile.linkedin} className="transition hover:text-teal-300">LinkedIn</a>
           <a href={profile.github} className="transition hover:text-teal-300">GitHub</a>
-          <a href={profile.resume} className="transition hover:text-teal-300">Resume</a>
+          <a href={`/portfolio${profile.resume}`} className="transition hover:text-teal-300">Resume</a>
         </div>
       </div>
     </footer>
